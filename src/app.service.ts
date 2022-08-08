@@ -8,7 +8,7 @@ export class AppService {
     return {
       status: "online",
       environment: process.env.NODE_ENV,
-      appVersion: process.env.npm_package_version,
+      version: process.env.npm_package_version,
       uptime: UtilsDate.secondsToFormattedStringEN(
         Math.trunc(process.uptime())
       ), 

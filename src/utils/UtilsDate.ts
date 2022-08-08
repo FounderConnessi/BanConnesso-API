@@ -165,57 +165,6 @@ export class UtilsDate {
     return signed ? res : Math.abs(res);
   }
 
-  /**
-   * @deprecated user daysDiff
-   * @param myDate
-   */
-  static daysDiffFromNow(myDate: any) {
-    return Math.abs(Math.round((myDate - Date.now()) / (1000 * 60 * 60 * 24)));
-  }
-
-  /**
-   * @deprecated user hoursDiff
-   * @param myDate
-   */
-  static hoursDiffFromNow(myDate: Date) {
-    return Math.abs(
-      Math.trunc(
-        (myDate.getTime() +
-          myDate.getTimezoneOffset() * 60 * 1000 -
-          (Date.now() + new Date().getTimezoneOffset() * 60 * 1000)) /
-          (1000 * 60 * 60)
-      )
-    );
-  }
-
-  /**
-   * @deprecated user secondsDiff
-   * @param myDate
-   */
-  static secondsDiffFromNow(myDate: Date) {
-    return Math.abs(
-      Math.trunc(
-        (myDate.getTime() +
-          myDate.getTimezoneOffset() -
-          (Date.now() + new Date().getTimezoneOffset())) /
-          1000
-      )
-    );
-  }
-
-  /**
-   * @deprecated user secondsDiff signed
-   * @param myDate
-   */
-  static realSecondsDiffFromNow(myDate: Date) {
-    return Math.trunc(
-      (myDate.getTime() +
-        myDate.getTimezoneOffset() -
-        (Date.now() + new Date().getTimezoneOffset())) /
-        1000
-    );
-  }
-
   static currentTimeFormatted(): string {
     const date = new Date();
     const h = date.getHours().toString();

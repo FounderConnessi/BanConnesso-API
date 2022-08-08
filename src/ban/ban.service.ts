@@ -1,34 +1,94 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { GetUserDto } from './dto';
-
+import { UserDto,  UsersDto } from './dto';
 @Injectable()
 export class BanService {
 
   constructor(private readonly prismaService: PrismaService) { }
 
-  getBannedUsers() {
-    return this.prismaService.ban.findMany(
+  async getBannedUsers(dto?: UsersDto) {
+    const filter = {
+      endDate: null,
+      AND: {}
+    };
+
+    if (dto.filter && dto.filter.gravities) {
+      filter.AND = {
+        gravity: { in: dto.filter.gravities }
+      }
+    }
+
+    const users = await this.prismaService.ban.findMany(
       {
-        where: {
-          valid: true
-        },
+        where: filter,
         select: {
-          uuid: true,
-          nickname: true,
-          reason: true
+          uuid: dto.fields != null && dto.fields.uuid!=null  ? dto.fields.uuid : true,
+          nickname: dto.fields != null && dto.fields.nickname != null ? dto.fields.nickname : true,
+          startDate: dto.fields != null && dto.fields.startDate != null ? dto.fields.startDate : true,
+          gravity: dto.fields != null && dto.fields.gravity != null ? dto.fields.gravity : true,
+          reason: dto.fields != null && dto.fields.reason != null ? dto.fields.reason : true
         }
       }
     );
+
+    return {
+      "count": users.length,
+      "users": users
+    }
   }
 
-  getBannedUser(dto: GetUserDto) {
-    const user = this.prismaService.ban.findUnique({
-      where: {
-        nickname: dto.nickname
+  async getBannedUser(
+    query: {
+      uuid?: string;
+      nickname?: string;
+    },
+    dto?: UserDto
+    ) {
+
+    let condition;
+    if (query.nickname && query.uuid) {
+      condition = {
+        nickname: query.nickname,
+        AND: {
+          uuid: query.uuid,
+          AND: {
+            endDate: null
+          }
+        }
       }
-    })
-    return user;
+    } else if (query.nickname) {
+      condition = {
+        nickname: query.nickname,
+        AND: {
+          endDate: null
+        }
+      }
+    } else if (query.uuid) {
+      condition = {
+        uuid: query.uuid,
+        AND: {
+          endDate: null
+        }
+      }
+    } else {
+      throw new HttpException('You must specify a uuid or nickname.', HttpStatus.BAD_REQUEST);
+    }
+
+    const user = await this.prismaService.ban.findFirst({
+      where: condition,
+      select: {
+        uuid: dto.fields != null && dto.fields.uuid != null ? dto.fields.uuid : true,
+        nickname: dto.fields != null && dto.fields.nickname != null ? dto.fields.nickname : true,
+        startDate: dto.fields != null && dto.fields.startDate != null ? dto.fields.startDate : true,
+        gravity: dto.fields != null && dto.fields.gravity != null ? dto.fields.gravity : true,
+        reason: dto.fields != null && dto.fields.reason != null ? dto.fields.reason : true
+      }
+    });
+
+    return {
+      "banned": user != null,
+      "user": user
+    };
   }
 
 }
