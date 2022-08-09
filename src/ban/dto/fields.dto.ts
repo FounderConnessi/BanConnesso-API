@@ -6,7 +6,8 @@ export class FieldsDto {
     
     @ApiPropertyOptional({
         description: 'UUID dell\'utente.',
-        example: true
+        example: true,
+        default: true
     })
     @IsOptional()
     @IsBoolean()
@@ -14,7 +15,8 @@ export class FieldsDto {
 
     @ApiPropertyOptional({
         description: 'Nickname dell\'utente.',
-        example: true
+        example: true,
+        default: true
     })
     @IsOptional()
     @IsBoolean()
@@ -22,7 +24,8 @@ export class FieldsDto {
 
     @ApiPropertyOptional({
         description: 'Data del ban.',
-        example: true
+        example: false,
+        default: true
     })
     @IsOptional()
     @IsBoolean()
@@ -30,7 +33,8 @@ export class FieldsDto {
 
     @ApiPropertyOptional({
         description: 'Motivo del ban.',
-        example: true
+        example: true,
+        default: true
     })
     @IsOptional()
     @IsBoolean()
@@ -38,7 +42,8 @@ export class FieldsDto {
 
     @ApiPropertyOptional({
         description: 'Gravità del ban.',
-        example: true
+        example: false,
+        default: true
     })
     @IsOptional()
     @IsBoolean()
