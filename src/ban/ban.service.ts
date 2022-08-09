@@ -1,6 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserQuery, UserDto,  UsersDto } from './dto';
+import * as hash from 'object-hash';
 @Injectable()
 export class BanService {
 
@@ -33,7 +34,8 @@ export class BanService {
 
     return {
       "count": users.length,
-      "users": users
+      "users": users,
+      "hashCode": users.length != 0 ? hash(users) : null
     }
   }
 
@@ -82,7 +84,8 @@ export class BanService {
 
     return {
       "banned": user != null,
-      "user": user
+      "user": user,
+      "hashCode": user != null ? hash(user) : null
     };
   }
 

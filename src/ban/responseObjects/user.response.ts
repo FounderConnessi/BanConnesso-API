@@ -16,4 +16,11 @@ export class UserResponseObj {
         type: UserModel
     })
     user: UserModel;
+
+    @ApiProperty({
+        description: 'Hash generato (SHA1)',
+        example: "8c4b5c0742eb3bfbb03891838d11899929a77106",
+        type: "string | null"
+    })
+    hashCode: String
 }

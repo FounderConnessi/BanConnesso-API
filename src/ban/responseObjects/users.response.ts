@@ -17,4 +17,11 @@ export class UsersResponseObj {
         isArray: true
     })
     users: UserModel[];
+
+    @ApiProperty({
+        description: 'Hash generato (SHA1)',
+        example: "661f5d5838ef0bfcd8a956a2fe0b7a560966e63f",
+        type: "string | null"
+    })
+    hashCode: String
 }
