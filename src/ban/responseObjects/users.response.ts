@@ -2,7 +2,7 @@ import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { UserModel } from "./user.model";
 
 
-export class UsersResponseObject {
+export class UsersResponseObj {
     
 
     @ApiProperty({

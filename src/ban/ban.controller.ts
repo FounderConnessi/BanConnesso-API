@@ -1,8 +1,9 @@
 import { Body, Controller, Get, Query } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { BanService } from './ban.service';
 import { UserQuery, UserDto,  UsersDto } from './dto';
-import { UserResponseObject, UsersResponseObject } from './responseObjects';
+import { UserResponseObj, UsersResponseObj } from './responseObjects';
+import { BadRequestResponseObj, InternalServerErrorResponseObj } from './responseObjects';
 
 @ApiTags('ban')
 @Controller('ban')
@@ -14,8 +15,16 @@ export class BanController {
     summary: 'Restituisce la lista degli utenti bannati.' 
   })
   @ApiOkResponse({
-    description: "Ok",
-    type: UsersResponseObject,
+    description: "Richiesta andata a buon fine",
+    type: UsersResponseObj,
+  })
+  @ApiBadRequestResponse({
+    description: "Richiesta mal posta",
+    type: BadRequestResponseObj
+  })
+  @ApiInternalServerErrorResponse({
+    description: "Errore interno del server",
+    type: InternalServerErrorResponseObj
   })
   @Get("users")
   getBans(@Body() dto?: UsersDto) {
@@ -27,8 +36,16 @@ export class BanController {
     summary: 'Restituisce le informazioni di uno specifico utente.' 
   })
   @ApiOkResponse({
-    description: "Ok",
-    type: UserResponseObject
+    description: "Richiesta andata a buon fine",
+    type: UserResponseObj
+  })
+  @ApiBadRequestResponse({
+    description: "Richiesta mal posta",
+    type: BadRequestResponseObj
+  })
+  @ApiInternalServerErrorResponse({
+    description: "Errore interno del server",
+    type: InternalServerErrorResponseObj
   })
   @Get("user")
   getBan(@Query() userQuery: UserQuery, @Body() userDto?: UserDto) {
