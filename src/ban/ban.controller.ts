@@ -1,10 +1,8 @@
 import { Body, Controller, Get, Query } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation, ApiTags, ApiTooManyRequestsResponse } from '@nestjs/swagger';
 import { BanService } from './ban.service';
 import { UserQuery, UserDto,  UsersDto } from './dto';
-import { UserResponseObj, UsersResponseObj } from './responseObjects';
-import { BadRequestResponseObj, InternalServerErrorResponseObj } from './responseObjects';
-
+import { TooManyReqsResponseObj, UserResponseObj, UsersResponseObj, BadRequestResponseObj, InternalServerErrorResponseObj } from './responseObjects';
 @ApiTags('ban')
 @Controller('ban')
 export class BanController {
@@ -26,6 +24,10 @@ export class BanController {
     description: "Errore interno del server",
     type: InternalServerErrorResponseObj
   })
+  @ApiTooManyRequestsResponse({
+    description: "Limite di richieste superato (5 ogni 60s)",
+    type: TooManyReqsResponseObj
+  })
   @Get("users")
   getBans(@Body() dto?: UsersDto) {
     return this.banService.getBannedUsers(dto);
@@ -46,6 +48,10 @@ export class BanController {
   @ApiInternalServerErrorResponse({
     description: "Errore interno del server",
     type: InternalServerErrorResponseObj
+  })
+  @ApiTooManyRequestsResponse({
+    description: "Limite di richieste superato (5 ogni 60s)",
+    type: TooManyReqsResponseObj
   })
   @Get("user")
   getBan(@Query() userQuery: UserQuery, @Body() userDto?: UserDto) {
