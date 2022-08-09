@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { UserDto,  UsersDto } from './dto';
+import { UserQuery, UserDto,  UsersDto } from './dto';
 @Injectable()
 export class BanService {
 
@@ -38,10 +38,7 @@ export class BanService {
   }
 
   async getBannedUser(
-    query: {
-      uuid?: string;
-      nickname?: string;
-    },
+    query: UserQuery, 
     dto?: UserDto
     ) {
 
@@ -70,8 +67,6 @@ export class BanService {
           endDate: null
         }
       }
-    } else {
-      throw new HttpException('You must specify a uuid or nickname.', HttpStatus.BAD_REQUEST);
     }
 
     const user = await this.prismaService.ban.findFirst({
