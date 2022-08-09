@@ -19,9 +19,9 @@ async function bootstrap() {
     customSiteTitle: "FounderConnessi | API",
     customfavIcon: 'https://i.imgur.com/EayOzNt.png',
     swaggerOptions: { 
-      defaultModelsExpandDepth: -1 
+      defaultModelsExpandDepth: -1,
+      supportedSubmitMethods: []
     },
-    supportedSubmitMethods: [],
     customCss: `
         .topbar-wrapper img { 
           content: url(\'https://i.imgur.com/EayOzNt.png\'); 
