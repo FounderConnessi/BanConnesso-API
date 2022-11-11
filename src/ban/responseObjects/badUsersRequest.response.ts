@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class BadRequestResponseObj {
+export class BadUsersRequestResponseObj {
     
     @ApiProperty({
         description: 'Codice di errore.',

@@ -24,7 +24,7 @@ export class FieldsDto {
 
     @ApiPropertyOptional({
         description: 'Data del ban.',
-        example: false,
+        example: true,
         default: true
     })
     @IsOptional()
@@ -42,7 +42,7 @@ export class FieldsDto {
 
     @ApiPropertyOptional({
         description: 'Gravità del ban.',
-        example: false,
+        example: true,
         default: true
     })
     @IsOptional()

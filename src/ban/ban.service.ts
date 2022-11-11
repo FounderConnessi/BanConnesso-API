@@ -13,7 +13,7 @@ export class BanService {
       AND: {}
     };
 
-    if (dto.filters && dto.filters.gravities) {
+    if (dto && dto.filters && dto.filters.gravities) {
       filter.AND = {
         gravity: { in: dto.filters.gravities }
       }
@@ -23,11 +23,11 @@ export class BanService {
       {
         where: filter,
         select: {
-          uuid: dto.fields != null && dto.fields.uuid!=null  ? dto.fields.uuid : true,
-          nickname: dto.fields != null && dto.fields.nickname != null ? dto.fields.nickname : true,
-          startDate: dto.fields != null && dto.fields.startDate != null ? dto.fields.startDate : true,
-          gravity: dto.fields != null && dto.fields.gravity != null ? dto.fields.gravity : true,
-          reason: dto.fields != null && dto.fields.reason != null ? dto.fields.reason : true
+          uuid: dto != null && dto.fields != null && dto.fields.uuid!=null  ? dto.fields.uuid : true,
+          nickname: dto != null && dto.fields != null && dto.fields.nickname != null ? dto.fields.nickname : true,
+          startDate: dto != null && dto.fields != null && dto.fields.startDate != null ? dto.fields.startDate : true,
+          gravity: dto != null && dto.fields != null && dto.fields.gravity != null ? dto.fields.gravity : true,
+          reason: dto != null && dto.fields != null && dto.fields.reason != null ? dto.fields.reason : true
         }
       }
     );
@@ -74,11 +74,11 @@ export class BanService {
     const user = await this.prismaService.ban.findFirst({
       where: condition,
       select: {
-        uuid: dto.fields != null && dto.fields.uuid != null ? dto.fields.uuid : true,
-        nickname: dto.fields != null && dto.fields.nickname != null ? dto.fields.nickname : true,
-        startDate: dto.fields != null && dto.fields.startDate != null ? dto.fields.startDate : true,
-        gravity: dto.fields != null && dto.fields.gravity != null ? dto.fields.gravity : true,
-        reason: dto.fields != null && dto.fields.reason != null ? dto.fields.reason : true
+        uuid: dto != null && dto.fields != null && dto.fields.uuid != null ? dto.fields.uuid : true,
+        nickname: dto != null && dto.fields != null && dto.fields.nickname != null ? dto.fields.nickname : true,
+        startDate: dto != null && dto.fields != null && dto.fields.startDate != null ? dto.fields.startDate : true,
+        gravity: dto != null && dto.fields != null && dto.fields.gravity != null ? dto.fields.gravity : true,
+        reason: dto != null && dto.fields != null && dto.fields.reason != null ? dto.fields.reason : true
       }
     });
 
