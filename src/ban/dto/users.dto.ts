@@ -1,7 +1,7 @@
 import { ApiPropertyOptional } from "@nestjs/swagger";
 import { IsOptional } from "class-validator";
 import { FieldsDto } from "./fields.dto";
-import { FilterDto } from "./filter.dto";
+import { FiltersDto } from "./filter.dto";
 
 
 export class UsersDto {
@@ -15,8 +15,8 @@ export class UsersDto {
 
     @ApiPropertyOptional({
         description: 'Filtro sugli utenti.',
-        type: FilterDto
+        type: FiltersDto
     })
     @IsOptional()
-    filter?: FilterDto;
+    filters?: FiltersDto;
 }

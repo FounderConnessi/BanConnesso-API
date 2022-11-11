@@ -2,7 +2,7 @@ import { ApiPropertyOptional } from "@nestjs/swagger";
 import { Gravity } from "@prisma/client";
 import { IsArray, IsOptional } from "class-validator";
 
-export class FilterDto {
+export class FiltersDto {
 
     @ApiPropertyOptional({
         description: 'Gravità del ban.',

@@ -13,9 +13,9 @@ export class BanService {
       AND: {}
     };
 
-    if (dto.filter && dto.filter.gravities) {
+    if (dto.filters && dto.filters.gravities) {
       filter.AND = {
-        gravity: { in: dto.filter.gravities }
+        gravity: { in: dto.filters.gravities }
       }
     }
 
