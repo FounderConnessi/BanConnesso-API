@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {UtilsDate} from "./utils/UtilsDate";
+import { UtilsDate } from "./utils/UtilsDate";
 
 @Injectable()
 export class AppService {
@@ -12,11 +12,12 @@ export class AppService {
         api: process.env.npm_package_version,
         bungeecord: process.env.bungeecord_version,
         velocity: process.env.velocity_version,
-        spigot: process.env.spigot_version
+        spigot: process.env.spigot_version,
+        minestom: process.env.minestom_version
       },
       uptime: UtilsDate.secondsToFormattedStringEN(
         Math.trunc(process.uptime())
-      ), 
+      ),
     };
   }
 
